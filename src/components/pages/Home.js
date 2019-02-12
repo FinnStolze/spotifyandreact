@@ -1,7 +1,26 @@
 import React from "react";
+import { Navbar, NavbarBrand } from "reactstrap";
+import { Link } from "react-router-dom";
 
-const Home = () => {
-  return <div>Home is where the DOM is :)</div>;
-};
+export default class App extends React.Component {
+  state = {
+    isOpen: false
+  };
+  toggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  };
 
-export default Home;
+  render() {
+    return (
+      <div>
+        <Navbar color="light" light expand="md">
+          <Link to="/">
+            <NavbarBrand>home</NavbarBrand>
+          </Link>
+        </Navbar>
+      </div>
+    );
+  }
+}
