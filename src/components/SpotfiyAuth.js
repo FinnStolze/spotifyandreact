@@ -19,7 +19,7 @@ class SpotifyAuth extends React.Component {
       );
     }
     return (
-      <button onClick={this.onLogin} type="button" className="btn btn-danger">
+      <button type="button" className="btn btn-danger">
         Logout
       </button>
     );

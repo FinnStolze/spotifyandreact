@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles.css";
 import SpotifyAuth from "../SpotfiyAuth";
+import { getAlbums } from "../../actions";
+import { connect } from "react-redux";
 
-export default class Home extends React.Component {
+class Home extends React.Component {
+  componentDidMount() {
+    if (this.props.isSignedIn) {
+      this.props.getAlbums(this.props.token);
+    }
+  }
   render() {
     return (
       <div>
@@ -17,3 +23,12 @@ export default class Home extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { token: state.auth.token, isSignedIn: state.auth.signedIn };
+};
+
+export default connect(
+  mapStateToProps,
+  { getAlbums }
+)(Home);
