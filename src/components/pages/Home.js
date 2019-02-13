@@ -1,25 +1,18 @@
 import React from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
 import { Link } from "react-router-dom";
+import "../../styles.css";
+import SpotifyAuth from "../SpotfiyAuth";
 
-export default class App extends React.Component {
-  state = {
-    isOpen: false
-  };
-  toggle = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  };
-
+export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <Link to="/">
-            <NavbarBrand>home</NavbarBrand>
+        <nav className="navbar navbar-white bg-dark">
+          <Link to="/" className="navbar-brand text-white">
+            home
           </Link>
-        </Navbar>
+          <SpotifyAuth />
+        </nav>
       </div>
     );
   }
