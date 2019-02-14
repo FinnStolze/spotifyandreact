@@ -37,6 +37,6 @@ export const getAlbums = token => async dispatch => {
 
   dispatch({
     type: GET_ALBUMS,
-    payload: response.data.items[0].album.images[0].url
+    payload: response.data.items
   });
 };

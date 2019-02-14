@@ -1,12 +1,9 @@
 import { GET_ALBUMS } from "../actions/types";
 
-const INITIAL_STATE = {
-  albums: ""
-};
-export default (state = INITIAL_STATE, action) => {
+export default (state = [], action) => {
   switch (action.type) {
     case GET_ALBUMS:
-      return { ...state, albums: action.payload };
+      return action.payload;
     default:
       return state;
   }

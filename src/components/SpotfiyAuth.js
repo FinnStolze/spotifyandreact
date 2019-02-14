@@ -30,7 +30,6 @@ class SpotifyAuth extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return { signedIn: state.auth.signedIn };
 };
 

@@ -1,15 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SpotifyAuth from "../SpotfiyAuth";
-import { getAlbums } from "../../actions";
-import { connect } from "react-redux";
+import Carousel from "../Carousel";
 
 class Home extends React.Component {
-  componentDidMount() {
-    if (this.props.isSignedIn) {
-      this.props.getAlbums(this.props.token);
-    }
-  }
   render() {
     return (
       <div>
@@ -19,16 +13,10 @@ class Home extends React.Component {
           </Link>
           <SpotifyAuth />
         </nav>
+        <Carousel />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return { token: state.auth.token, isSignedIn: state.auth.signedIn };
-};
-
-export default connect(
-  mapStateToProps,
-  { getAlbums }
-)(Home);
+export default Home;
