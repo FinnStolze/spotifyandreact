@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { getAlbums } from "../actions";
+import { connect } from "react-redux";
 import {
   Carousel,
   CarouselItem,
@@ -7,25 +9,7 @@ import {
   CarouselCaption
 } from "reactstrap";
 
-const items = [
-  {
-    src: "https://i.scdn.co/image/15d56668ef4e7e2e912227caeb749fcd361cccf8",
-    altText: "Slide 1",
-    caption: "Slide 1"
-  },
-  {
-    src: "https://i.scdn.co/image/15d56668ef4e7e2e912227caeb749fcd361cccf8",
-    altText: "Slide 2",
-    caption: "Slide 2"
-  },
-  {
-    src: "https://i.scdn.co/image/15d56668ef4e7e2e912227caeb749fcd361cccf8",
-    altText: "Slide 3",
-    caption: "Slide 3"
-  }
-];
-
-class Example extends Component {
+class CarouselStrap extends Component {
   constructor(props) {
     super(props);
     this.state = { activeIndex: 0 };
@@ -34,6 +18,12 @@ class Example extends Component {
     this.goToIndex = this.goToIndex.bind(this);
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.isSignedIn) {
+      this.props.getAlbums(this.props.token);
+    }
   }
 
   onExiting() {
@@ -47,7 +37,7 @@ class Example extends Component {
   next() {
     if (this.animating) return;
     const nextIndex =
-      this.state.activeIndex === items.length - 1
+      this.state.activeIndex === this.props.items.length - 1
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
@@ -57,7 +47,7 @@ class Example extends Component {
     if (this.animating) return;
     const nextIndex =
       this.state.activeIndex === 0
-        ? items.length - 1
+        ? this.props.items.length - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
   }
@@ -70,30 +60,40 @@ class Example extends Component {
   render() {
     const { activeIndex } = this.state;
 
-    const slides = items.map(item => {
+    const slides = this.props.items.map(item => {
       return (
         <CarouselItem
           onExiting={this.onExiting}
           onExited={this.onExited}
           key={item.src}
         >
-          <img src={item.src} alt={item.altText} />
-          <CarouselCaption
-            captionText={item.caption}
-            captionHeader={item.caption}
-          />
+          <div className="d-flex  flex-row" style={{ height: "300px" }}>
+            <img className="h-100" src={item.src} alt={item.altText} />
+
+            <div style={{ overflow: "scroll" }} />
+            <ul className="list-group list-group-flush">
+              {item.tracks.map((track, idx) => (
+                <li key={idx} className="list-group-item">
+                  {track.name}
+                </li>
+              ))}
+            </ul>
+
+            <div />
+          </div>
         </CarouselItem>
       );
     });
 
     return (
       <Carousel
+        className="container"
         activeIndex={activeIndex}
         next={this.next}
         previous={this.previous}
       >
         <CarouselIndicators
-          items={items}
+          items={this.props.items}
           activeIndex={activeIndex}
           onClickHandler={this.goToIndex}
         />
@@ -113,4 +113,24 @@ class Example extends Component {
   }
 }
 
-export default Example;
+const mapStateToProps = (state, ownProps) => {
+  console.log(state);
+  const albums = state.albums.map(album => {
+    return {
+      src: album.album.images[1].url,
+      altText: "AlbumCover",
+      caption: album.album.artists[0].name,
+      tracks: album.album.tracks.items
+    };
+  });
+  return {
+    token: state.auth.token,
+    isSignedIn: state.auth.signedIn,
+    items: albums
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getAlbums }
+)(CarouselStrap);
