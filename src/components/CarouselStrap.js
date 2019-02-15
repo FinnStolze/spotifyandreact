@@ -67,11 +67,17 @@ class CarouselStrap extends Component {
           onExited={this.onExited}
           key={item.src}
         >
-          <div className="d-flex  flex-row" style={{ height: "300px" }}>
+          <div
+            className="d-flex  flex-row justify-content-center"
+            style={{ height: "300px" }}
+          >
             <img className="h-100" src={item.src} alt={item.altText} />
 
-            <div style={{ overflow: "scroll" }} />
-            <ul className="list-group list-group-flush">
+            <div />
+            <ul
+              style={{ overflow: "scroll" }}
+              className="list-group list-group-flush"
+            >
               {item.tracks.map((track, idx) => (
                 <li key={idx} className="list-group-item">
                   {track.name}
