@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SpotifyAuth from "../SpotfiyAuth";
 import CarouselStrap from "../CarouselStrap";
 import { connect } from "react-redux";
-import { getAlbums } from "../../actions";
+import SdkPlayer from "../SdkPlayer";
 
 class Home extends React.Component {
   render() {
@@ -15,7 +15,14 @@ class Home extends React.Component {
           </Link>
           <SpotifyAuth />
         </nav>
-        {this.props.isSignedIn ? <CarouselStrap /> : <div> </div>}
+        {this.props.isSignedIn ? (
+          <div>
+            <CarouselStrap /> <br />
+            <SdkPlayer />
+          </div>
+        ) : (
+          <div> </div>
+        )}
       </div>
     );
   }

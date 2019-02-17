@@ -5,8 +5,7 @@ import {
   Carousel,
   CarouselItem,
   CarouselControl,
-  CarouselIndicators,
-  CarouselCaption
+  CarouselIndicators
 } from "reactstrap";
 
 class CarouselStrap extends Component {
@@ -75,7 +74,7 @@ class CarouselStrap extends Component {
 
             <div />
             <ul
-              style={{ overflow: "scroll" }}
+              style={{ overflowY: "scroll" }}
               className="list-group list-group-flush"
             >
               {item.tracks.map((track, idx) => (
