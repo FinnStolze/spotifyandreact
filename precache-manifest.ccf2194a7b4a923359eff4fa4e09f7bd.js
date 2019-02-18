@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "c250edb44ed8344ae0c1",
-    "url": "/spotifyandreact/static/js/main.c250edb4.chunk.js"
+    "revision": "047ebdc61bb14921e94f",
+    "url": "/spotifyandreact/static/js/main.047ebdc6.chunk.js"
   },
   {
     "revision": "020b61582156e9170d59",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/spotifyandreact/static/js/2.52a9d2c8.chunk.js"
   },
   {
-    "revision": "5ec86a32a0525dabcd76862134f9aa2d",
+    "revision": "d91b052b38db34f1f58591c61a8eca07",
     "url": "/spotifyandreact/index.html"
   }
 ];
