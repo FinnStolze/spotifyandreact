@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/spotifyandreact/precache-manifest.a6a1efc2a43c8162aa7725553a040fce.js"
+  "/spotifyandreact/precache-manifest.68054c4b7d96d7126311510332fdc1bb.js"
 );
 
 workbox.clientsClaim();
