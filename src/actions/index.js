@@ -1,5 +1,5 @@
 // ActionsCreators
-import { LOGIN_USER, RECEIVED_TOKEN, GET_ALBUMS } from "./types";
+import { LOGIN_USER, RECEIVED_TOKEN, GET_ALBUMS, PLAY_TRACK } from "./types";
 import axios from "axios";
 
 export const loginUser = () => {
@@ -11,10 +11,7 @@ export const loginUser = () => {
     "redirect_uri",
     "http://localhost:3000/redirectedpage"
   );
-  loginUrl.searchParams.append(
-    "scope",
-    "user-modify-playback-state streaming user-read-birthdate user-read-email user-read-private user-read-private user-library-read"
-  );
+  loginUrl.searchParams.append("scope", "user-modify-playback-state streaming");
 
   window.location = loginUrl.href;
 
@@ -42,14 +39,20 @@ export const getAlbums = token => async dispatch => {
 };
 
 export const playTrack = (token, currentTrackUri) => async dispatch => {
-  const spotify = axios.create({
-    baseURL: "https://api.spotify.com/v1/me/player",
+  const response = await axios({
+    method: "put",
+    baseURL: "https://api.spotify.com/v1/me/player/play?",
+    params: {
+      device_id: "8823f9501fd02a23671d4b6e3260d078e835ccde"
+    },
     headers: {
       authorization: `Bearer ${token}`
+    },
+    data: {
+      uris: [currentTrackUri],
+      offset: { position: 0 }
     }
   });
-
-  const response = await spotify.put("/play");
 
   dispatch({
     type: "PLAY_TRACK",
@@ -73,21 +76,17 @@ export const pauseTrack = (token, currentTrackUri) => async dispatch => {
   });
 };
 
-export const activateDevice = (token, currentTrackUri) => async dispatch => {
+export const getDeviceId = token => async dispatch => {
   const response = await axios({
     method: "put",
-    url: " 	https://api.spotify.com/v1/me/player",
+    url: " 	https://api.spotify.com/v1/me/player/devices",
     headers: {
       authorization: `Bearer ${token}`
-    },
-    data: {
-      device_ids: ["8823f9501fd02a23671d4b6e3260d078e835ccde"],
-      play: false
     }
   });
 
   dispatch({
-    type: "PLAY_TRACK",
+    type: PLAY_TRACK,
     payload: response.data
   });
 };

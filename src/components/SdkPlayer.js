@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { playTrack, activateDevice, pauseTrack } from "../actions";
+import { playTrack, activateDevice, pauseTrack, getDeviceId } from "../actions";
 
 class SdkPlayer extends React.Component {
   componentDidMount() {
@@ -80,5 +80,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { playTrack, activateDevice, pauseTrack }
+  { playTrack, getDeviceId, pauseTrack }
 )(SdkPlayer);
