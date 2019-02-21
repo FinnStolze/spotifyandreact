@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { playTrack, activateDevice, pauseTrack, getDeviceId } from "../actions";
+import { playTrack, pauseTrack, getDeviceId } from "../actions";
 
 class SdkPlayer extends React.Component {
   componentDidMount() {
@@ -59,14 +59,14 @@ class SdkPlayer extends React.Component {
   onPause = () => {
     this.props.pauseTrack(this.props.auth.token, this.props.uri);
   };
-  onActivate = () => {
-    this.props.activateDevice(this.props.auth.token, this.props.uri);
+  onGetDeviceIds = () => {
+    this.props.getDeviceId(this.props.auth.token);
   };
 
   render() {
     return (
       <div>
-        <button onClick={this.onActivate}> Activate </button>
+        <button onClick={this.onGetDeviceIds}> getDeviceIds </button>
         <button onClick={this.onPlay}> Play </button>
         <button onClick={this.onPause}> Pause </button>
       </div>

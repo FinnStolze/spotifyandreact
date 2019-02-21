@@ -1,5 +1,12 @@
 // ActionsCreators
-import { LOGIN_USER, RECEIVED_TOKEN, GET_ALBUMS, PLAY_TRACK } from "./types";
+import {
+  LOGIN_USER,
+  RECEIVED_TOKEN,
+  GET_ALBUMS,
+  PLAY_TRACK,
+  GET_DEVICE_ID,
+  PAUSE_TRACK
+} from "./types";
 import axios from "axios";
 
 export const loginUser = () => {
@@ -11,7 +18,10 @@ export const loginUser = () => {
     "redirect_uri",
     "http://localhost:3000/redirectedpage"
   );
-  loginUrl.searchParams.append("scope", "user-modify-playback-state streaming");
+  loginUrl.searchParams.append(
+    "scope",
+    "user-modify-playback-state streaming user-read-playback-state"
+  );
 
   window.location = loginUrl.href;
 
@@ -39,7 +49,8 @@ export const getAlbums = token => async dispatch => {
 };
 
 export const playTrack = (token, currentTrackUri) => async dispatch => {
-  const response = await axios({
+  console.log(currentTrackUri);
+  await axios({
     method: "put",
     baseURL: "https://api.spotify.com/v1/me/player/play?",
     params: {
@@ -55,8 +66,7 @@ export const playTrack = (token, currentTrackUri) => async dispatch => {
   });
 
   dispatch({
-    type: "PLAY_TRACK",
-    payload: response.data
+    type: PLAY_TRACK
   });
 };
 
@@ -68,17 +78,16 @@ export const pauseTrack = (token, currentTrackUri) => async dispatch => {
     }
   });
 
-  const response = await spotify.put("/pause");
+  await spotify.put("/pause");
 
   dispatch({
-    type: "PLAY_TRACK",
-    payload: response.data
+    type: PAUSE_TRACK
   });
 };
 
 export const getDeviceId = token => async dispatch => {
   const response = await axios({
-    method: "put",
+    method: "get",
     url: " 	https://api.spotify.com/v1/me/player/devices",
     headers: {
       authorization: `Bearer ${token}`
@@ -86,7 +95,7 @@ export const getDeviceId = token => async dispatch => {
   });
 
   dispatch({
-    type: PLAY_TRACK,
-    payload: response.data
+    type: GET_DEVICE_ID,
+    payload: response.devices
   });
 };

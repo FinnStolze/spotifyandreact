@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getAlbums } from "../actions";
+import { getAlbums, playTrack } from "../actions";
 import { connect } from "react-redux";
 import {
   Carousel,
@@ -56,6 +56,15 @@ class CarouselStrap extends Component {
     this.setState({ activeIndex: newIndex });
   }
 
+  onSelectTrack = event => {
+    console.log(event.target);
+    console.log(event.target.getAttribute("data-key"));
+    this.props.playTrack(
+      this.props.token,
+      event.target.getAttribute("data-key")
+    );
+  };
+
   render() {
     const { activeIndex } = this.state;
 
@@ -77,8 +86,13 @@ class CarouselStrap extends Component {
               style={{ overflowY: "scroll" }}
               className="list-group list-group-flush"
             >
-              {item.tracks.map((track, idx) => (
-                <li key={idx} className="list-group-item">
+              {item.tracks.map(track => (
+                <li
+                  onClick={this.onSelectTrack}
+                  key={track.uri}
+                  data-key={track.uri}
+                  className="list-group-item"
+                >
                   {track.name}
                 </li>
               ))}
@@ -137,5 +151,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { getAlbums }
+  { getAlbums, playTrack }
 )(CarouselStrap);
