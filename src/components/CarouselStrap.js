@@ -9,15 +9,9 @@ import {
 } from "reactstrap";
 
 class CarouselStrap extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeIndex: 0 };
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-    this.goToIndex = this.goToIndex.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
-  }
+  state = {
+    activeIndex: 0
+  };
 
   componentDidMount() {
     if (this.props.isSignedIn) {
@@ -25,36 +19,36 @@ class CarouselStrap extends Component {
     }
   }
 
-  onExiting() {
+  onExiting = () => {
     this.animating = true;
-  }
+  };
 
-  onExited() {
+  onExited = () => {
     this.animating = false;
-  }
+  };
 
-  next() {
+  next = () => {
     if (this.animating) return;
     const nextIndex =
       this.state.activeIndex === this.props.items.length - 1
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
-  }
+  };
 
-  previous() {
+  previous = () => {
     if (this.animating) return;
     const nextIndex =
       this.state.activeIndex === 0
         ? this.props.items.length - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
-  }
+  };
 
-  goToIndex(newIndex) {
+  goToIndex = newIndex => {
     if (this.animating) return;
     this.setState({ activeIndex: newIndex });
-  }
+  };
 
   onSelectTrack = event => {
     console.log(event.target);
