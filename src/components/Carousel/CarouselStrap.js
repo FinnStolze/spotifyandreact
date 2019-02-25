@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { getAlbums, playTrack } from "../../actions";
 import { connect } from "react-redux";
-import {
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators
-} from "reactstrap";
+import { Carousel, CarouselItem, CarouselControl } from "reactstrap";
 import TrackList from "./TrackList";
 import Cover from "./Cover";
 
@@ -56,15 +51,39 @@ class CarouselStrap extends Component {
     const { activeIndex } = this.state;
 
     const slides = this.props.albums.map(album => {
+      console.log(album);
       return (
         <CarouselItem
           key={album.src}
           onExiting={this.onExiting}
           onExited={this.onExited}
         >
-          <div className="d-flex  flex-row justify-content-center">
-            <Cover coverSource={album.src} coverAltText={album.altText} />
-            <TrackList tracks={album.tracks} />
+          <div className="row justify-content-center" style={{ height: 600 }}>
+            <div className="col-md-4 .offset-md-4 w-100">
+              {/* */}
+              <div className="card bg-dark shadow-lg rounded">
+                <Cover
+                  className="card-img-top"
+                  coverSource={album.src}
+                  coverAltText={album.altText}
+                />
+                <div className="card-body h-100 text-light">
+                  <h5 className="card-title"> {album.info.name}</h5>
+                  <h6 className="card-subtitle mb-2 text-muted">
+                    {album.info.artists[0].name}
+                  </h6>
+                  <p className="card-text" />
+                  <button className="btn btn-primary">Go somewhere</button>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4" style={{ overflowY: "scroll" }}>
+              <div className="card bg-dark shadow-lg rounded">
+                <div className="card-body">
+                  <TrackList tracks={album.tracks} />
+                </div>
+              </div>
+            </div>
           </div>
         </CarouselItem>
       );
@@ -77,11 +96,6 @@ class CarouselStrap extends Component {
         next={this.next}
         previous={this.previous}
       >
-        <CarouselIndicators
-          items={this.props.albums}
-          activeIndex={activeIndex}
-          onClickHandler={this.goToIndex}
-        />
         {slides}
         <CarouselControl
           direction="prev"
@@ -100,11 +114,13 @@ class CarouselStrap extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const albums = state.albums.map(album => {
+    console.log(album);
     return {
       src: album.album.images[1].url,
       altText: "AlbumCover",
       caption: album.album.artists[0].name,
-      tracks: album.album.tracks.items
+      tracks: album.album.tracks.items,
+      info: album.album
     };
   });
   return {
