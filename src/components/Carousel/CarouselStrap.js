@@ -47,11 +47,17 @@ class CarouselStrap extends Component {
     this.setState({ activeIndex: newIndex });
   };
 
+  onPlay = () => {
+    this.props.playTrack(this.props.token, this.props.uri);
+  };
+  onPause = () => {
+    this.props.pauseTrack(this.props.token, this.props.uri);
+  };
+
   render() {
     const { activeIndex } = this.state;
 
     const slides = this.props.albums.map(album => {
-      console.log(album);
       return (
         <CarouselItem
           key={album.src}
@@ -73,7 +79,18 @@ class CarouselStrap extends Component {
                     {album.info.artists[0].name}
                   </h6>
                   <p className="card-text" />
-                  <button className="btn btn-primary">Go somewhere</button>
+                  <button onClick={this.onPlay} className="btn btn-success m-2">
+                    Play
+                  </button>
+                  <button onClick={this.onPause} className="btn btn-danger m-2">
+                    ||
+                  </button>
+                  <button onClick={this.onPause} className="btn btn-info m-2">
+                    prev
+                  </button>
+                  <button onClick={this.onPause} className="btn btn-info m-2">
+                    next
+                  </button>
                 </div>
               </div>
             </div>
