@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { getAlbums, playTrack } from "../../actions";
+import {
+  getAlbums,
+  playTrack,
+  getCurrentTrack,
+  pauseTrack
+} from "../../actions";
 import { connect } from "react-redux";
 import { Carousel, CarouselItem, CarouselControl } from "reactstrap";
 import TrackList from "./TrackList";
@@ -31,6 +36,7 @@ class CarouselStrap extends Component {
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
+    this.props.getCurrentTrack(this.props.token);
   };
 
   previous = () => {
@@ -40,6 +46,7 @@ class CarouselStrap extends Component {
         ? this.props.albums.length - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
+    this.props.getCurrentTrack(this.props.token);
   };
 
   goToIndex = newIndex => {
@@ -48,7 +55,11 @@ class CarouselStrap extends Component {
   };
 
   onPlay = () => {
-    this.props.playTrack(this.props.token, this.props.uri);
+    if (this.props.player.uri) {
+      this.props.playTrack(this.props.token, this.props.uri);
+    } else {
+      this.props.playTrack(this.props.token);
+    }
   };
   onPause = () => {
     this.props.pauseTrack(this.props.token, this.props.uri);
@@ -94,9 +105,12 @@ class CarouselStrap extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-md-4" style={{ overflowY: "scroll" }}>
+            <div className="col-md-4 h-100">
               <div className="card bg-dark shadow-lg rounded">
-                <div className="card-body">
+                <div
+                  className="card-body"
+                  style={{ height: 600, overflowY: "scroll" }}
+                >
                   <TrackList tracks={album.tracks} />
                 </div>
               </div>
@@ -131,7 +145,6 @@ class CarouselStrap extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const albums = state.albums.map(album => {
-    console.log(album);
     return {
       src: album.album.images[1].url,
       altText: "AlbumCover",
@@ -143,11 +156,12 @@ const mapStateToProps = (state, ownProps) => {
   return {
     token: state.auth.token,
     isSignedIn: state.auth.signedIn,
-    albums: albums
+    albums: albums,
+    player: state.player
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getAlbums, playTrack }
+  { getAlbums, playTrack, getCurrentTrack, pauseTrack }
 )(CarouselStrap);
