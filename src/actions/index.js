@@ -16,7 +16,7 @@ export const loginUser = () => {
   loginUrl.searchParams.append(
     "redirect_uri",
     process.env.PUBLIC_URL
-      ? "https://finnstolze.github.io/spotifyandreact"
+      ? "http://finnstolze.github.io/spotifyandreact"
       : "http://localhost:3000"
   );
   loginUrl.searchParams.append(
