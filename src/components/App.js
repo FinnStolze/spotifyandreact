@@ -1,17 +1,17 @@
 import React from "react";
-import { Router, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import history from "../history";
 import RedirectedPage from "./RedirectedPage";
 
 const App = () => {
   return (
-    <Router history={history}>
+    <BrowserRouter basename={process.env.PUBLIC_URL} history={history}>
       <div>
-        <Route path={process.env.PUBLIC_URL} exact component={Home} />
+        <Route path="/" exact component={Home} />
         <Route path="/redirectedpage" component={RedirectedPage} />
       </div>
-    </Router>
+    </BrowserRouter>
   );
 };
 
