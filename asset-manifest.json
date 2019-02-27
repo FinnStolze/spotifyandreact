@@ -1,13 +1,13 @@
 {
-  "main.js": "/SpotifyAndReact/static/js/main.3a8c3463.chunk.js",
-  "main.js.map": "/SpotifyAndReact/static/js/main.3a8c3463.chunk.js.map",
+  "main.js": "/SpotifyAndReact/static/js/main.665b88e6.chunk.js",
+  "main.js.map": "/SpotifyAndReact/static/js/main.665b88e6.chunk.js.map",
   "runtime~main.js": "/SpotifyAndReact/static/js/runtime~main.61828d37.js",
   "runtime~main.js.map": "/SpotifyAndReact/static/js/runtime~main.61828d37.js.map",
   "static/css/2.77644afc.chunk.css": "/SpotifyAndReact/static/css/2.77644afc.chunk.css",
-  "static/js/2.4e85fae1.chunk.js": "/SpotifyAndReact/static/js/2.4e85fae1.chunk.js",
-  "static/js/2.4e85fae1.chunk.js.map": "/SpotifyAndReact/static/js/2.4e85fae1.chunk.js.map",
+  "static/js/2.4390f7ee.chunk.js": "/SpotifyAndReact/static/js/2.4390f7ee.chunk.js",
+  "static/js/2.4390f7ee.chunk.js.map": "/SpotifyAndReact/static/js/2.4390f7ee.chunk.js.map",
   "index.html": "/SpotifyAndReact/index.html",
-  "precache-manifest.8acae9dfab05dcb46f50c8a0692a9195.js": "/SpotifyAndReact/precache-manifest.8acae9dfab05dcb46f50c8a0692a9195.js",
+  "precache-manifest.5c26be5b77b25979614e50efbcc6f2be.js": "/SpotifyAndReact/precache-manifest.5c26be5b77b25979614e50efbcc6f2be.js",
   "service-worker.js": "/SpotifyAndReact/service-worker.js",
   "static/css/2.77644afc.chunk.css.map": "/SpotifyAndReact/static/css/2.77644afc.chunk.css.map"
 }
