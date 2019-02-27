@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/SpotifyAndReact/precache-manifest.8f9640b12714aaf65b57354b9d8b3f9c.js"
+  "/spotifyandreact/precache-manifest.505ad39bca20c316c3f19c233f691157.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/SpotifyAndReact/index.html", {
+workbox.routing.registerNavigationRoute("/spotifyandreact/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
