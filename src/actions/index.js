@@ -15,7 +15,9 @@ export const loginUser = () => {
   loginUrl.searchParams.append("response_type", "token");
   loginUrl.searchParams.append(
     "redirect_uri",
-    process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "http://localhost:3000"
+    process.env.PUBLIC_URL
+      ? "https://finnstolze.github.io/spotifyandreact"
+      : "http://localhost:3000"
   );
   loginUrl.searchParams.append(
     "scope",
