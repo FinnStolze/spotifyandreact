@@ -8,7 +8,7 @@ const App = () => {
   return (
     <Router history={history}>
       <div>
-        <Route path="/" exact component={Home} />
+        <Route path={process.env.PUBLIC_URL} exact component={Home} />
         <Route path="/redirectedpage" component={RedirectedPage} />
       </div>
     </Router>
