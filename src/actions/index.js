@@ -13,10 +13,7 @@ export const loginUser = () => {
 
   loginUrl.searchParams.append("client_id", "43c8bd59b2ec4dd0b807352b209b6636");
   loginUrl.searchParams.append("response_type", "token");
-  loginUrl.searchParams.append(
-    "redirect_uri",
-    "http://localhost:3000/redirectedpage"
-  );
+  loginUrl.searchParams.append("redirect_uri", "http://localhost:3000");
   loginUrl.searchParams.append(
     "scope",
     "user-modify-playback-state streaming user-read-playback-state"

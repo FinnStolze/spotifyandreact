@@ -6,7 +6,7 @@ import RedirectedPage from "./RedirectedPage";
 
 const App = () => {
   return (
-    <Router history={history}>
+    <Router basename={process.env.PUBLIC_URL} history={history}>
       <div>
         <Route path="/" exact component={Home} />
         <Route path="/redirectedpage" component={RedirectedPage} />
