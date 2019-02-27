@@ -18,9 +18,7 @@ class Home extends React.Component {
     return (
       <div className="bg-light text-dark">
         <nav className="navbar navbar-white bg-dark shadow-lg rounded">
-          <Link to="/" className="navbar-brand text-white">
-            AlbumCarousel
-          </Link>
+          <div className="navbar-brand text-white">AlbumCarousel</div>
           <SpotifyAuth />
         </nav>
         {this.props.isSignedIn ? (
