@@ -1,14 +1,10 @@
 import React, { Component } from "react";
-import {
-  getAlbums,
-  playTrack,
-  getCurrentTrack,
-  pauseTrack
-} from "../../actions";
+import { getAlbums, playTrack, pauseTrack, changeIndex } from "../../actions";
 import { connect } from "react-redux";
 import { Carousel, CarouselItem, CarouselControl } from "reactstrap";
 import TrackList from "./TrackList";
 import Cover from "./Cover";
+import PlayerControl from "../Player/PlayerControl";
 
 class CarouselStrap extends Component {
   state = {
@@ -36,7 +32,7 @@ class CarouselStrap extends Component {
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
-    this.props.getCurrentTrack(this.props.token);
+    this.props.changeIndex(this.state.activeIndex);
   };
 
   previous = () => {
@@ -46,23 +42,12 @@ class CarouselStrap extends Component {
         ? this.props.albums.length - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
-    this.props.getCurrentTrack(this.props.token);
+    this.props.changeIndex(this.state.activeIndex);
   };
 
   goToIndex = newIndex => {
     if (this.animating) return;
     this.setState({ activeIndex: newIndex });
-  };
-
-  onPlay = () => {
-    if (this.props.player.uri) {
-      this.props.playTrack(this.props.token, this.props.uri);
-    } else {
-      this.props.playTrack(this.props.token);
-    }
-  };
-  onPause = () => {
-    this.props.pauseTrack(this.props.token, this.props.uri);
   };
 
   render() {
@@ -75,7 +60,7 @@ class CarouselStrap extends Component {
           onExiting={this.onExiting}
           onExited={this.onExited}
         >
-          <div className="row justify-content-center" style={{ height: 600 }}>
+          <div className="row justify-content-center" style={{ height: 500 }}>
             <div className="col-md-4 .offset-md-4 w-100">
               {/* */}
               <div className="card bg-dark shadow-lg rounded">
@@ -90,18 +75,7 @@ class CarouselStrap extends Component {
                     {album.info.artists[0].name}
                   </h6>
                   <p className="card-text" />
-                  <button onClick={this.onPlay} className="btn btn-success m-2">
-                    Play
-                  </button>
-                  <button onClick={this.onPause} className="btn btn-danger m-2">
-                    ||
-                  </button>
-                  <button onClick={this.onPause} className="btn btn-info m-2">
-                    prev
-                  </button>
-                  <button onClick={this.onPause} className="btn btn-info m-2">
-                    next
-                  </button>
+                  <PlayerControl />
                 </div>
               </div>
             </div>
@@ -109,7 +83,7 @@ class CarouselStrap extends Component {
               <div className="card bg-dark shadow-lg rounded">
                 <div
                   className="card-body"
-                  style={{ height: 600, overflowY: "scroll" }}
+                  style={{ height: 500, overflowY: "scroll" }}
                 >
                   <TrackList tracks={album.tracks} />
                 </div>
@@ -126,6 +100,7 @@ class CarouselStrap extends Component {
         activeIndex={activeIndex}
         next={this.next}
         previous={this.previous}
+        interval={false}
       >
         {slides}
         <CarouselControl
@@ -156,12 +131,16 @@ const mapStateToProps = (state, ownProps) => {
   return {
     token: state.auth.token,
     isSignedIn: state.auth.signedIn,
-    albums: albums,
-    player: state.player
+    albums: albums
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getAlbums, playTrack, getCurrentTrack, pauseTrack }
+  {
+    getAlbums,
+    playTrack,
+    pauseTrack,
+    changeIndex
+  }
 )(CarouselStrap);

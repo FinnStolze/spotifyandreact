@@ -4,7 +4,6 @@ import {
   RECEIVED_TOKEN,
   GET_ALBUMS,
   PLAY_TRACK,
-  GET_DEVICE_ID,
   PAUSE_TRACK
 } from "./types";
 import axios from "axios";
@@ -48,8 +47,18 @@ export const getAlbums = token => async dispatch => {
   });
 };
 
-export const playTrack = (token, currentTrackUri) => async dispatch => {
-  console.log(currentTrackUri);
+export const changeIndex = (albumIndex, trackIndex = 0) => {
+  return {
+    type: "CHANGE_INDEX",
+    payload: { albumIndex, trackIndex }
+  };
+};
+
+export const nextTrack = (TrackIndex, activeAlbum, token) => async dispatch => {
+  const nextTrackIndex =
+    TrackIndex === activeAlbum.length - 1 ? 0 : TrackIndex + 1;
+
+  const currentTrackUri = activeAlbum[TrackIndex].uri;
   await axios({
     method: "put",
     baseURL: "https://api.spotify.com/v1/me/player/play?",
@@ -66,7 +75,65 @@ export const playTrack = (token, currentTrackUri) => async dispatch => {
   });
 
   dispatch({
-    type: PLAY_TRACK
+    type: "NEXT_TRACK",
+    payload: nextTrackIndex
+  });
+};
+
+export const prevTrack = (TrackIndex, activeAlbum, token) => async dispatch => {
+  const nextTrackIndex =
+    TrackIndex === 0 ? activeAlbum.length - 1 : TrackIndex - 1;
+
+  const currentTrackUri = activeAlbum[TrackIndex].uri;
+  await axios({
+    method: "put",
+    baseURL: "https://api.spotify.com/v1/me/player/play?",
+    params: {
+      device_id: "8823f9501fd02a23671d4b6e3260d078e835ccde"
+    },
+    headers: {
+      authorization: `Bearer ${token}`
+    },
+    data: {
+      uris: [currentTrackUri],
+      offset: { position: 0 }
+    }
+  });
+
+  dispatch({
+    type: "PREV_TRACK",
+    payload: nextTrackIndex
+  });
+};
+
+export const playTrack = (token, currentTracks, position) => async dispatch => {
+  const currentTrackUri = currentTracks[position].uri;
+  await axios({
+    method: "put",
+    baseURL: "https://api.spotify.com/v1/me/player/play?",
+    params: {
+      device_id: "8823f9501fd02a23671d4b6e3260d078e835ccde"
+    },
+    headers: {
+      authorization: `Bearer ${token}`
+    },
+    data: {
+      uris: [currentTrackUri],
+      offset: { position: 0 }
+    }
+  });
+
+  const response = await axios({
+    method: "get",
+    url: " 	https://api.spotify.com/v1/me/player",
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  });
+
+  dispatch({
+    type: PLAY_TRACK,
+    payload: response.data.item
   });
 };
 
@@ -82,20 +149,5 @@ export const pauseTrack = (token, currentTrackUri) => async dispatch => {
 
   dispatch({
     type: PAUSE_TRACK
-  });
-};
-
-export const getDeviceId = token => async dispatch => {
-  const response = await axios({
-    method: "get",
-    url: " 	https://api.spotify.com/v1/me/player/devices",
-    headers: {
-      authorization: `Bearer ${token}`
-    }
-  });
-
-  dispatch({
-    type: GET_DEVICE_ID,
-    payload: response.devices
   });
 };

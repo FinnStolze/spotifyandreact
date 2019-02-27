@@ -27,23 +27,26 @@ class PlayerControl extends React.Component {
       this.props.token
     );
   };
-  onIndexChange = () => {
-    this.props.playTrack(
-      this.props.token,
-      this.props.activeAlbum,
-      this.props.index.trackIndex
-    );
-  };
+
+  componentDidUpdate(prevProps) {
+    console.log(prevProps);
+    if (
+      prevProps.index.albumIndex !== this.props.index.albumIndex ||
+      prevProps.index.trackIndex !== this.props.index.albumIndex
+    ) {
+      this.props.playTrack(
+        this.props.token,
+        this.props.activeAlbum,
+        this.props.index.trackIndex
+      );
+    }
+  }
 
   render() {
     return (
       <div>
-        <div onChange={this.onIndexChange} value={this.props.index.albumIndex}>
-          Album Index: {this.props.index.albumIndex}
-        </div>
-        <div onChange={this.onIndexChange} value={this.props.index.trackIndex}>
-          Track Index: {this.props.index.trackIndex}
-        </div>
+        <div>Album Index: {this.props.index.albumIndex}</div>
+        <div>Track Index: {this.props.index.trackIndex}</div>
 
         <button onClick={this.onPlay} className="btn btn-success m-2">
           Play

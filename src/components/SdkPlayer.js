@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { playTrack, pauseTrack, getDeviceId } from "../actions";
 
 class SdkPlayer extends React.Component {
   componentDidMount() {
@@ -53,32 +52,16 @@ class SdkPlayer extends React.Component {
     };
   }
 
-  onPlay = () => {
-    this.props.playTrack(this.props.auth.token, this.props.uri);
-  };
-  onPause = () => {
-    this.props.pauseTrack(this.props.auth.token, this.props.uri);
-  };
-  onGetDeviceIds = () => {
-    this.props.getDeviceId(this.props.auth.token);
-  };
-
   render() {
-    return (
-      <div>
-        <button onClick={this.onGetDeviceIds}> getDeviceIds </button>
-        <button onClick={this.onPlay}> Play </button>
-        <button onClick={this.onPause}> Pause </button>
-      </div>
-    );
+    return null;
   }
 }
 
 const mapStateToProps = state => {
-  return { auth: state.auth, uri: "spotify:track:2J3XzDLjbXkny8qhr33zTh" };
+  return { auth: state.auth };
 };
 
 export default connect(
   mapStateToProps,
-  { playTrack, getDeviceId, pauseTrack }
+  {}
 )(SdkPlayer);
