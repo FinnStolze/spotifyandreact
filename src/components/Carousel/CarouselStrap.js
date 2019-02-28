@@ -60,26 +60,27 @@ class CarouselStrap extends Component {
           onExiting={this.onExiting}
           onExited={this.onExited}
         >
-          <div className="row justify-content-center" style={{ height: 500 }}>
-            <div className="col-md-4 .offset-md-4 w-100">
-              {/* */}
+          <div className="row justify-content-center">
+            <div className="col-md-4 .offset-md-4">
               <div className="card bg-dark shadow-lg rounded">
                 <Cover
                   className="card-img-top"
                   coverSource={album.src}
                   coverAltText={album.altText}
                 />
-                <div className="card-body h-100 text-light">
+                <div className="card-body text-light">
                   <h5 className="card-title"> {album.info.name}</h5>
                   <h6 className="card-subtitle mb-2 text-muted">
                     {album.info.artists[0].name}
                   </h6>
                   <p className="card-text" />
-                  <PlayerControl />
+                  <div className="row justify-content-center">
+                    <PlayerControl />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="col-md-4 h-100">
+            <div className="col-md-4">
               <div className="card bg-dark shadow-lg rounded">
                 <div
                   className="card-body"
