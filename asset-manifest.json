@@ -1,13 +1,13 @@
 {
-  "main.js": "/spotifyandreact/static/js/main.58b93898.chunk.js",
-  "main.js.map": "/spotifyandreact/static/js/main.58b93898.chunk.js.map",
+  "main.js": "/spotifyandreact/static/js/main.1738d0f6.chunk.js",
+  "main.js.map": "/spotifyandreact/static/js/main.1738d0f6.chunk.js.map",
   "runtime~main.js": "/spotifyandreact/static/js/runtime~main.020b6158.js",
   "runtime~main.js.map": "/spotifyandreact/static/js/runtime~main.020b6158.js.map",
   "static/css/2.77644afc.chunk.css": "/spotifyandreact/static/css/2.77644afc.chunk.css",
-  "static/js/2.4b707e35.chunk.js": "/spotifyandreact/static/js/2.4b707e35.chunk.js",
-  "static/js/2.4b707e35.chunk.js.map": "/spotifyandreact/static/js/2.4b707e35.chunk.js.map",
+  "static/js/2.515c2b96.chunk.js": "/spotifyandreact/static/js/2.515c2b96.chunk.js",
+  "static/js/2.515c2b96.chunk.js.map": "/spotifyandreact/static/js/2.515c2b96.chunk.js.map",
   "index.html": "/spotifyandreact/index.html",
-  "precache-manifest.8e3c2664bfd7a3ae3f6fce6f43c7da34.js": "/spotifyandreact/precache-manifest.8e3c2664bfd7a3ae3f6fce6f43c7da34.js",
+  "precache-manifest.790d0001604f84eaf15043b205f40a04.js": "/spotifyandreact/precache-manifest.790d0001604f84eaf15043b205f40a04.js",
   "service-worker.js": "/spotifyandreact/service-worker.js",
   "static/css/2.77644afc.chunk.css.map": "/spotifyandreact/static/css/2.77644afc.chunk.css.map"
 }
