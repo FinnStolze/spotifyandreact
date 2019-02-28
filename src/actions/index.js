@@ -5,9 +5,12 @@ import {
   GET_ALBUMS,
   PLAY_TRACK,
   PAUSE_TRACK,
-  GET_DEVICE_IDS
+  GET_DEVICE_IDS,
+  NEXT_TRACK,
+  PREV_TRACK,
+  CHANGE_INDEX
 } from "./types";
-import axios from "axios";
+import spotify from "../apis/spotify";
 
 export const loginUser = () => {
   let loginUrl = new URL("https://accounts.spotify.com/authorize?");
@@ -35,14 +38,7 @@ export const receiveToken = acessToken => {
 };
 
 export const getAlbums = token => async dispatch => {
-  const spotify = axios.create({
-    baseURL: "https://api.spotify.com/v1",
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-
-  const response = await spotify.get("me/albums");
+  const response = await spotify(token).get("me/albums");
 
   dispatch({
     type: GET_ALBUMS,
@@ -52,7 +48,7 @@ export const getAlbums = token => async dispatch => {
 
 export const changeIndex = (albumIndex, trackIndex = 0) => {
   return {
-    type: "CHANGE_INDEX",
+    type: CHANGE_INDEX,
     payload: { albumIndex, trackIndex }
   };
 };
@@ -65,25 +61,13 @@ export const nextTrack = (
 ) => async dispatch => {
   const nextTrackIndex =
     TrackIndex === activeAlbum.length - 1 ? 0 : TrackIndex + 1;
-
   const currentTrackUri = activeAlbum[TrackIndex].uri;
-  await axios({
-    method: "put",
-    baseURL: "https://api.spotify.com/v1/me/player/play?",
-    params: {
-      device_id: device_id
-    },
-    headers: {
-      authorization: `Bearer ${token}`
-    },
-    data: {
-      uris: [currentTrackUri],
-      offset: { position: 0 }
-    }
-  });
 
+  const url = `me/player/play?&device_id=${device_id}`;
+  const data = { uris: [currentTrackUri], offset: { position: 0 } };
+  await spotify(token).put(url, data);
   dispatch({
-    type: "NEXT_TRACK",
+    type: NEXT_TRACK,
     payload: nextTrackIndex
   });
 };
@@ -98,23 +82,13 @@ export const prevTrack = (
     TrackIndex === 0 ? activeAlbum.length - 1 : TrackIndex - 1;
 
   const currentTrackUri = activeAlbum[TrackIndex].uri;
-  await axios({
-    method: "put",
-    baseURL: "https://api.spotify.com/v1/me/player/play?",
-    params: {
-      device_id: device_id
-    },
-    headers: {
-      authorization: `Bearer ${token}`
-    },
-    data: {
-      uris: [currentTrackUri],
-      offset: { position: 0 }
-    }
-  });
+
+  const url = `me/player/play?&device_id=${device_id}`;
+  const data = { uris: [currentTrackUri], offset: { position: 0 } };
+  await spotify(token).put(url, data);
 
   dispatch({
-    type: "PREV_TRACK",
+    type: PREV_TRACK,
     payload: nextTrackIndex
   });
 };
@@ -126,44 +100,19 @@ export const playTrack = (
   device_id
 ) => async dispatch => {
   const currentTrackUri = currentTracks[position].uri;
-  await axios({
-    method: "put",
-    baseURL: "https://api.spotify.com/v1/me/player/play?",
-    params: {
-      device_id: device_id
-    },
-    headers: {
-      authorization: `Bearer ${token}`
-    },
-    data: {
-      uris: [currentTrackUri],
-      offset: { position: 0 }
-    }
-  });
 
-  const response = await axios({
-    method: "get",
-    url: " 	https://api.spotify.com/v1/me/player",
-    headers: {
-      authorization: `Bearer ${token}`
-    }
-  });
+  const url = `me/player/play?&device_id=${device_id}`;
+  const data = { uris: [currentTrackUri], offset: { position: 0 } };
+  await spotify(token).put(url, data);
 
   dispatch({
-    type: PLAY_TRACK,
-    payload: response.data.item
+    type: PLAY_TRACK
   });
 };
 
 export const pauseTrack = (token, currentTrackUri) => async dispatch => {
-  const spotify = axios.create({
-    baseURL: "https://api.spotify.com/v1/me/player",
-    headers: {
-      authorization: `Bearer ${token}`
-    }
-  });
-
-  await spotify.put("/pause");
+  const url = "me/player/pause";
+  await spotify(token).put(url);
 
   dispatch({
     type: PAUSE_TRACK

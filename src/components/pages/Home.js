@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import SpotifyAuth from "../SpotfiyAuth";
 import CarouselStrap from "../Carousel/CarouselStrap";
 import { connect } from "react-redux";

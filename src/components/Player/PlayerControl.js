@@ -32,7 +32,6 @@ class PlayerControl extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
     if (
       prevProps.index.albumIndex !== this.props.index.albumIndex ||
       prevProps.index.trackIndex !== this.props.index.albumIndex
