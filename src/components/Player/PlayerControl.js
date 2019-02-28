@@ -7,7 +7,8 @@ class PlayerControl extends React.Component {
     this.props.playTrack(
       this.props.token,
       this.props.activeAlbum,
-      this.props.index.trackIndex
+      this.props.index.trackIndex,
+      this.props.device_id
     );
   };
   onPause = () => {
@@ -17,14 +18,16 @@ class PlayerControl extends React.Component {
     this.props.nextTrack(
       this.props.index.trackIndex,
       this.props.activeAlbum,
-      this.props.token
+      this.props.token,
+      this.props.device_id
     );
   };
   onPrev = () => {
     this.props.prevTrack(
       this.props.index.trackIndex,
       this.props.activeAlbum,
-      this.props.token
+      this.props.token,
+      this.props.device_id
     );
   };
 
@@ -37,7 +40,8 @@ class PlayerControl extends React.Component {
       this.props.playTrack(
         this.props.token,
         this.props.activeAlbum,
-        this.props.index.trackIndex
+        this.props.index.trackIndex,
+        this.props.device_id
       );
     }
   }
@@ -70,7 +74,8 @@ const mapStateToProps = state => {
   return {
     token: state.auth.token,
     activeAlbum: activeAlbum,
-    index: state.index
+    index: state.index,
+    device_id: state.auth.device_id
   };
 };
 

@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
+import { getDeviceIds } from "../actions";
 
 class SdkPlayer extends React.Component {
   componentDidMount() {
     const token = this.props.auth.token;
+    this.props.getDeviceIds(this.props.auth.token);
     window.onSpotifyWebPlaybackSDKReady = () => {
       this.player = new window.Spotify.Player({
-        name: "Finns Player",
+        name: "Album Carousel",
         getOAuthToken: cb => {
           cb(token);
         }
@@ -34,6 +36,7 @@ class SdkPlayer extends React.Component {
       // Ready
       this.player.addListener("ready", ({ device_id }) => {
         console.log("Ready with Device ID", device_id);
+        this.props.getDeviceIds(device_id);
       });
 
       // Not Ready
@@ -63,5 +66,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {}
+  { getDeviceIds }
 )(SdkPlayer);

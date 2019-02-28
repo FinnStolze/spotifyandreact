@@ -4,7 +4,8 @@ import {
   RECEIVED_TOKEN,
   GET_ALBUMS,
   PLAY_TRACK,
-  PAUSE_TRACK
+  PAUSE_TRACK,
+  GET_DEVICE_IDS
 } from "./types";
 import axios from "axios";
 
@@ -56,7 +57,12 @@ export const changeIndex = (albumIndex, trackIndex = 0) => {
   };
 };
 
-export const nextTrack = (TrackIndex, activeAlbum, token) => async dispatch => {
+export const nextTrack = (
+  TrackIndex,
+  activeAlbum,
+  token,
+  device_id
+) => async dispatch => {
   const nextTrackIndex =
     TrackIndex === activeAlbum.length - 1 ? 0 : TrackIndex + 1;
 
@@ -65,7 +71,7 @@ export const nextTrack = (TrackIndex, activeAlbum, token) => async dispatch => {
     method: "put",
     baseURL: "https://api.spotify.com/v1/me/player/play?",
     params: {
-      device_id: "8823f9501fd02a23671d4b6e3260d078e835ccde"
+      device_id: device_id
     },
     headers: {
       authorization: `Bearer ${token}`
@@ -82,7 +88,12 @@ export const nextTrack = (TrackIndex, activeAlbum, token) => async dispatch => {
   });
 };
 
-export const prevTrack = (TrackIndex, activeAlbum, token) => async dispatch => {
+export const prevTrack = (
+  TrackIndex,
+  activeAlbum,
+  token,
+  device_id
+) => async dispatch => {
   const nextTrackIndex =
     TrackIndex === 0 ? activeAlbum.length - 1 : TrackIndex - 1;
 
@@ -91,7 +102,7 @@ export const prevTrack = (TrackIndex, activeAlbum, token) => async dispatch => {
     method: "put",
     baseURL: "https://api.spotify.com/v1/me/player/play?",
     params: {
-      device_id: "8823f9501fd02a23671d4b6e3260d078e835ccde"
+      device_id: device_id
     },
     headers: {
       authorization: `Bearer ${token}`
@@ -108,13 +119,18 @@ export const prevTrack = (TrackIndex, activeAlbum, token) => async dispatch => {
   });
 };
 
-export const playTrack = (token, currentTracks, position) => async dispatch => {
+export const playTrack = (
+  token,
+  currentTracks,
+  position,
+  device_id
+) => async dispatch => {
   const currentTrackUri = currentTracks[position].uri;
   await axios({
     method: "put",
     baseURL: "https://api.spotify.com/v1/me/player/play?",
     params: {
-      device_id: "8823f9501fd02a23671d4b6e3260d078e835ccde"
+      device_id: device_id
     },
     headers: {
       authorization: `Bearer ${token}`
@@ -152,4 +168,11 @@ export const pauseTrack = (token, currentTrackUri) => async dispatch => {
   dispatch({
     type: PAUSE_TRACK
   });
+};
+
+export const getDeviceIds = device_id => {
+  return {
+    type: GET_DEVICE_IDS,
+    payload: device_id
+  };
 };
