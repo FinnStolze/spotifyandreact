@@ -45,11 +45,6 @@ class CarouselStrap extends Component {
     this.props.changeIndex(this.state.activeIndex);
   };
 
-  goToIndex = newIndex => {
-    if (this.animating) return;
-    this.setState({ activeIndex: newIndex });
-  };
-
   render() {
     const { activeIndex } = this.state;
 

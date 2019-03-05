@@ -34,7 +34,7 @@ class PlayerControl extends React.Component {
   componentDidUpdate(prevProps) {
     if (
       prevProps.index.albumIndex !== this.props.index.albumIndex ||
-      prevProps.index.trackIndex !== this.props.index.albumIndex
+      prevProps.index.trackIndex !== this.props.index.trackIndex
     ) {
       this.props.playTrack(
         this.props.token,

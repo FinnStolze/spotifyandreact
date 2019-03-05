@@ -4,8 +4,8 @@ import { getDeviceIds } from "../actions";
 
 class SdkPlayer extends React.Component {
   componentDidMount() {
-    const token = this.props.auth.token;
-    this.props.getDeviceIds(this.props.auth.token);
+    const token = this.props.token;
+    this.props.getDeviceIds(this.props.token);
     window.onSpotifyWebPlaybackSDKReady = () => {
       this.player = new window.Spotify.Player({
         name: "Album Carousel",
@@ -61,7 +61,7 @@ class SdkPlayer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { auth: state.auth };
+  return { token: state.auth.token };
 };
 
 export default connect(
