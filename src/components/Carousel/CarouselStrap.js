@@ -60,7 +60,7 @@ class CarouselStrap extends Component {
           onExiting={this.onExiting}
           onExited={this.onExited}
         >
-          <div className="row justify-content-center">
+          <div className="row justify-content-center p-3">
             <div className="col-md-4 .offset-md-4">
               <div className="card bg-dark shadow-lg rounded">
                 <Cover

@@ -1,6 +1,6 @@
 // ActionsCreators
 import {
-  LOGIN_USER,
+  REDIRECT_FOR_AUTH,
   RECEIVED_TOKEN,
   GET_ALBUMS,
   PLAY_TRACK,
@@ -12,7 +12,7 @@ import {
 } from "./types";
 import spotify from "../apis/spotify";
 
-export const loginUser = () => {
+export const redirectForAuth = () => {
   let loginUrl = new URL("https://accounts.spotify.com/authorize?");
 
   loginUrl.searchParams.append("client_id", "43c8bd59b2ec4dd0b807352b209b6636");
@@ -30,7 +30,7 @@ export const loginUser = () => {
 
   window.location = loginUrl.href;
 
-  return { type: LOGIN_USER };
+  return { type: REDIRECT_FOR_AUTH };
 };
 
 export const receiveToken = acessToken => {

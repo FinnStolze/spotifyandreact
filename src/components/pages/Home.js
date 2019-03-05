@@ -1,9 +1,10 @@
 import React from "react";
-import SpotifyAuth from "../SpotfiyAuth";
 import CarouselStrap from "../Carousel/CarouselStrap";
 import { connect } from "react-redux";
 import SdkPlayer from "../SdkPlayer";
 import { receiveToken } from "../../actions";
+import Footer from "../Footer";
+import Navbar from "../Navbar";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -13,25 +14,26 @@ class Home extends React.Component {
       this.props.receiveToken(access_token);
     }
   }
+
+  renderContent = () => {
+    if (this.props.isSignedIn) {
+      return (
+        <div>
+          <CarouselStrap /> <br />
+          <SdkPlayer />
+          <Footer />
+        </div>
+      );
+    } else {
+      return <div />;
+    }
+  };
+
   render() {
     return (
       <div className="bg-light text-dark">
-        <nav className="navbar navbar-white bg-dark shadow-lg rounded">
-          <div className="navbar-brand text-white">AlbumCarousel</div>
-          <SpotifyAuth />
-        </nav>
-        {this.props.isSignedIn ? (
-          <div>
-            <div className="row justify-content-center p-3" />
-            <CarouselStrap /> <br />
-            <SdkPlayer />
-            <footer className="footer p-1 bg-dark shadow-lg rounded text-light text-right text-muted m-1">
-              Created by Finn Stolze
-            </footer>
-          </div>
-        ) : (
-          <div> </div>
-        )}
+        <Navbar />
+        {this.renderContent()}
       </div>
     );
   }

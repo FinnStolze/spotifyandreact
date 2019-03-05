@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../actions";
+import { redirectForAuth } from "../actions";
 
 class SpotifyAuth extends React.Component {
   onLogin = () => {
-    this.props.loginUser();
+    this.props.redirectForAuth();
   };
   renderButton() {
     if (!this.props.signedIn) {
@@ -35,5 +35,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { redirectForAuth }
 )(SpotifyAuth);
