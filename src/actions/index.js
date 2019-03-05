@@ -54,17 +54,17 @@ export const changeIndex = (albumIndex, trackIndex = 0) => {
 };
 
 export const nextTrack = (
-  TrackIndex,
-  activeAlbum,
+  trackIndex,
+  currentAlbumTracks,
   token,
   device_id
 ) => async dispatch => {
   const nextTrackIndex =
-    TrackIndex === activeAlbum.length - 1 ? 0 : TrackIndex + 1;
-  const currentTrackUri = activeAlbum[TrackIndex].uri;
+    trackIndex === currentAlbumTracks.length - 1 ? 0 : trackIndex + 1;
+  const currentTrackUris = currentAlbumTracks.map(track => track.uri);
 
   const url = `me/player/play?&device_id=${device_id}`;
-  const data = { uris: [currentTrackUri], offset: { position: 0 } };
+  const data = { uris: currentTrackUris, offset: { position: trackIndex } };
   await spotify(token).put(url, data);
   dispatch({
     type: NEXT_TRACK,
@@ -73,18 +73,18 @@ export const nextTrack = (
 };
 
 export const prevTrack = (
-  TrackIndex,
-  activeAlbum,
+  trackIndex,
+  currentAlbumTracks,
   token,
   device_id
 ) => async dispatch => {
   const nextTrackIndex =
-    TrackIndex === 0 ? activeAlbum.length - 1 : TrackIndex - 1;
+    trackIndex === 0 ? currentAlbumTracks.length - 1 : trackIndex - 1;
 
-  const currentTrackUri = activeAlbum[TrackIndex].uri;
+  const currentTrackUris = currentAlbumTracks.map(track => track.uri);
 
   const url = `me/player/play?&device_id=${device_id}`;
-  const data = { uris: [currentTrackUri], offset: { position: 0 } };
+  const data = { uris: currentTrackUris, offset: { position: trackIndex } };
   await spotify(token).put(url, data);
 
   dispatch({
@@ -95,14 +95,14 @@ export const prevTrack = (
 
 export const playTrack = (
   token,
-  currentTracks,
-  position,
+  currentAlbumTracks,
+  trackIndex,
   device_id
 ) => async dispatch => {
-  const currentTrackUri = currentTracks[position].uri;
+  const currentTrackUris = currentAlbumTracks.map(track => track.uri);
 
   const url = `me/player/play?&device_id=${device_id}`;
-  const data = { uris: [currentTrackUri], offset: { position: 0 } };
+  const data = { uris: currentTrackUris, offset: { position: trackIndex } };
   await spotify(token).put(url, data);
 
   dispatch({
