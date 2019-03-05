@@ -32,7 +32,7 @@ class CarouselStrap extends Component {
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
-    this.props.changeIndex(this.state.activeIndex);
+    this.props.changeIndex(nextIndex);
   };
 
   previous = () => {
@@ -42,7 +42,7 @@ class CarouselStrap extends Component {
         ? this.props.albums.length - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
-    this.props.changeIndex(this.state.activeIndex);
+    this.props.changeIndex(nextIndex);
   };
 
   render() {
@@ -97,25 +97,50 @@ class CarouselStrap extends Component {
     });
 
     return (
-      <Carousel
-        className="container"
-        activeIndex={activeIndex}
-        next={this.next}
-        previous={this.previous}
-        interval={false}
-      >
-        {slides}
-        <CarouselControl
-          direction="prev"
-          directionText="Previous"
-          onClickHandler={this.previous}
-        />
-        <CarouselControl
-          direction="next"
-          directionText="Next"
-          onClickHandler={this.next}
-        />
-      </Carousel>
+      <div>
+        <Carousel
+          className="container"
+          activeIndex={activeIndex}
+          next={this.next}
+          previous={this.previous}
+          interval={false}
+        >
+          {slides}
+          <CarouselControl
+            direction="prev"
+            directionText="Previous"
+            onClickHandler={this.previous}
+          />
+          <CarouselControl
+            direction="next"
+            directionText="Next"
+            onClickHandler={this.next}
+          />
+        </Carousel>
+        <style>
+          {`.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  outline: black;
+  background-size: 100%, 100%
+  background-image: none;
+}
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: black;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: black;
+}
+`}
+        </style>
+      </div>
     );
   }
 }
