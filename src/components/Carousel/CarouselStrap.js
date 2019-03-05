@@ -57,7 +57,10 @@ class CarouselStrap extends Component {
         >
           <div className="row justify-content-center p-3">
             <div className="col-md-4 .offset-md-4">
-              <div className="card bg-dark shadow-lg rounded">
+              <div
+                className="card bg-dark shadow-lg rounded "
+                style={{ height: 500 }}
+              >
                 <Cover
                   className="card-img-top"
                   coverSource={album.src}
@@ -76,7 +79,10 @@ class CarouselStrap extends Component {
               </div>
             </div>
             <div className="col-md-4">
-              <div className="card bg-dark shadow-lg rounded">
+              <div
+                className="card bg-dark shadow-lg rounded"
+                style={{ height: 500 }}
+              >
                 <div
                   className="card-body"
                   style={{ height: 500, overflowY: "scroll" }}
