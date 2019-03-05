@@ -71,10 +71,9 @@ class CarouselStrap extends Component {
                   <h6 className="card-subtitle mb-2 text-muted">
                     {album.info.artists[0].name}
                   </h6>
-                  <p className="card-text" />
-                  <div className="row justify-content-center">
-                    <PlayerControl />
-                  </div>
+                </div>
+                <div className="card-footer">
+                  <PlayerControl />
                 </div>
               </div>
             </div>

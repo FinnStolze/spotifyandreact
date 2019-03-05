@@ -48,22 +48,18 @@ class PlayerControl extends React.Component {
   render() {
     return (
       <div>
-        <div>Album Index: {this.props.index.albumIndex}</div>
-        <div>Track Index: {this.props.index.trackIndex}</div>
-        <div className="row">
-          <button onClick={this.onPlay} className="btn btn-success m-2">
-            Play
-          </button>
-          <button onClick={this.onPause} className="btn btn-danger m-2">
-            ||
-          </button>
-          <button onClick={this.onPrev} className="btn btn-info m-2">
-            prev
-          </button>
-          <button onClick={this.onNext} className="btn btn-info m-2">
-            next
-          </button>
-        </div>
+        <button onClick={this.onPlay} className="btn btn-success m-1">
+          Play
+        </button>
+        <button onClick={this.onPause} className="btn btn-danger m-1">
+          ||
+        </button>
+        <button onClick={this.onPrev} className="btn btn-info m-1">
+          prev
+        </button>
+        <button onClick={this.onNext} className="btn btn-info m-1">
+          next
+        </button>
       </div>
     );
   }
