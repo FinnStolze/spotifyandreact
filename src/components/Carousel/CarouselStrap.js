@@ -5,6 +5,7 @@ import { Carousel, CarouselItem, CarouselControl } from "reactstrap";
 import TrackList from "./TrackList";
 import Cover from "./Cover";
 import PlayerControl from "../Player/PlayerControl";
+import "./carouselStyles.css";
 
 class CarouselStrap extends Component {
   state = {
@@ -116,29 +117,6 @@ class CarouselStrap extends Component {
             onClickHandler={this.next}
           />
         </Carousel>
-        <style>
-          {`.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  height: 100px;
-  width: 100px;
-  outline: black;
-  background-size: 100%, 100%
-  background-image: none;
-}
-.carousel-control-prev-icon:after {
-  content: '<';
-  font-size: 55px;
-  color: black;
-}
-
-.carousel-control-next-icon:after
-{
-  content: '>';
-  font-size: 55px;
-  color: black;
-}
-`}
-        </style>
       </div>
     );
   }
